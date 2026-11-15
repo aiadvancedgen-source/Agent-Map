@@ -1,94 +1,189 @@
 {
-  "client": { "name": "ZIMMR", "logo": "zimmr-logo.png" },
-  "hub": { "title": "ZIMMR Agent Team", "kicker": "AI Advanced Gen · Agent map" },
+  "client": {
+    "name": "ZIMMR",
+    "logo": "zimmr-logo.png"
+  },
+  "hub": {
+    "title": "ZIMMR Agent Team",
+    "kicker": "AI Advanced Gen · Agent map"
+  },
   "approver": "Licensed consultant (RCIC)",
   "tools": {
-    "assessment-form": { "name": "Assessment form", "icon": "clipboard-list" },
-    "n8n": { "name": "n8n", "icon": "workflow" },
-    "postgres": { "name": "PostgreSQL", "icon": "database" },
-    "google-sheets": { "name": "Google Sheets", "icon": "table" },
-    "google-drive": { "name": "Google Drive", "icon": "hard-drive" },
-    "pdf-service": { "name": "PDF report service", "icon": "file-text" },
-    "claude": { "name": "Claude", "logo": "claude" },
-    "email": { "name": "Email", "icon": "mail" }
+    "assessment-form": {
+      "name": "Assessment form",
+      "icon": "clipboard-list"
+    },
+    "n8n": {
+      "name": "n8n",
+      "icon": "workflow"
+    },
+    "postgres": {
+      "name": "PostgreSQL",
+      "icon": "database"
+    },
+    "google-sheets": {
+      "name": "Google Sheets",
+      "icon": "table"
+    },
+    "google-drive": {
+      "name": "Google Drive",
+      "icon": "hard-drive"
+    },
+    "pdf-service": {
+      "name": "PDF report service",
+      "icon": "file-text"
+    },
+    "claude": {
+      "name": "Claude",
+      "logo": "claude"
+    },
+    "email": {
+      "name": "Email",
+      "icon": "mail"
+    }
   },
   "departments": [
     {
       "id": "conversion",
       "name": "Conversion",
       "color": "blue",
-      "tools": ["n8n", "postgres"],
+      "tools": [
+        "n8n",
+        "postgres"
+      ],
       "agents": [
         {
           "id": "sentinel",
           "name": "Sentinel",
-          "role": "Lead capture from the assessment form",
+          "role": "Captures every inquiry from Instagram DMs and website forms",
           "icon": "inbox",
           "status": "live",
-          "tools": ["assessment-form", "n8n", "google-sheets", "google-drive", "email"],
           "workflow": [
             {
               "title": "Receives the assessment form",
               "when": "On submit",
               "tool": "assessment-form",
               "body": [
-                { "type": "text", "text": "The multilingual assessment form posts the full submission to an n8n webhook." },
-                { "type": "chips", "chips": [{ "text": "English" }, { "text": "French" }, { "text": "Arabic" }, { "text": "Urdu" }] }
+                {
+                  "type": "text",
+                  "text": "The multilingual assessment form posts the full submission to an n8n webhook."
+                },
+                {
+                  "type": "chips",
+                  "chips": [
+                    {
+                      "text": "English"
+                    },
+                    {
+                      "text": "French"
+                    },
+                    {
+                      "text": "Arabic"
+                    },
+                    {
+                      "text": "Urdu"
+                    }
+                  ]
+                }
               ]
             },
             {
               "title": "Backs up the raw submission",
               "tool": "google-sheets",
-              "body": [{ "type": "text", "text": "The untouched submission is logged first, so nothing is lost if a later step fails." }]
+              "body": [
+                {
+                  "type": "text",
+                  "text": "The untouched submission is logged first, so nothing is lost if a later step fails."
+                }
+              ]
             },
             {
               "title": "Formats and scores the lead",
               "tool": "n8n",
-              "body": [{ "type": "text", "text": "Code formats the answers and scores the lead, then logs it as a row in the leads sheet." }]
+              "body": [
+                {
+                  "type": "text",
+                  "text": "Code formats the answers and scores the lead, then logs it as a row in the leads sheet."
+                }
+              ]
             },
             {
               "title": "Saves the report",
               "tool": "google-drive",
-              "body": [{ "type": "text", "text": "The report PDF is stored in Google Drive and its link is written back to the lead's row." }]
+              "body": [
+                {
+                  "type": "text",
+                  "text": "The report PDF is stored in Google Drive and its link is written back to the lead's row."
+                }
+              ]
             },
             {
               "title": "Emails the consultant",
               "tool": "email",
-              "body": [{ "type": "text", "text": "The report and the lead details go to the licensed consultant." }]
+              "body": [
+                {
+                  "type": "text",
+                  "text": "The report and the lead details go to the licensed consultant."
+                }
+              ]
             },
             {
               "title": "Confirms to the applicant",
               "when": "3 min later",
               "tool": "email",
               "tone": "good",
-              "body": [{ "type": "text", "text": "A confirmation email goes to the applicant after a short wait." }]
+              "body": [
+                {
+                  "type": "text",
+                  "text": "A confirmation email goes to the applicant after a short wait."
+                }
+              ]
             }
           ]
         },
         {
           "id": "assessor",
           "name": "Assessor",
-          "role": "Eligibility report for the consultant",
+          "role": "Scores eligibility within minutes of capture",
           "icon": "clipboard-check",
-          "status": "building",
-          "tools": ["n8n", "postgres", "pdf-service", "claude", "google-drive", "email"],
+          "status": "live",
           "workflow": [
             {
               "title": "Receives and normalises the submission",
               "when": "On submit",
               "tool": "n8n",
-              "body": [{ "type": "text", "text": "Answers the form immediately, then parses personal details, pathway, education, language, work history, admissibility and consent into one record." }]
+              "body": [
+                {
+                  "type": "text",
+                  "text": "Answers the form immediately, then parses personal details, pathway, education, language, work history, admissibility and consent into one record."
+                }
+              ]
             },
             {
               "title": "Saves the lead, once",
               "tool": "postgres",
               "body": [
-                { "type": "text", "text": "Inserted or updated by a dedupe key, with a server-generated reference number." },
+                {
+                  "type": "text",
+                  "text": "Inserted or updated by a dedupe key, with a server-generated reference number."
+                },
                 {
                   "type": "rows",
                   "rows": [
-                    { "label": "New submission", "chip": { "text": "Continue", "tone": "good" } },
-                    { "label": "Retried or duplicate submission", "chip": { "text": "Logged and ignored", "tone": "neutral" } }
+                    {
+                      "label": "New submission",
+                      "chip": {
+                        "text": "Continue",
+                        "tone": "good"
+                      }
+                    },
+                    {
+                      "label": "Retried or duplicate submission",
+                      "chip": {
+                        "text": "Logged and ignored",
+                        "tone": "neutral"
+                      }
+                    }
                   ]
                 }
               ]
@@ -97,26 +192,62 @@
               "title": "Scores in code and builds the PDF",
               "tool": "pdf-service",
               "body": [
-                { "type": "text", "text": "Scoring is deterministic code against published criteria. A report service renders the PDF, and the score is saved back to the lead." },
-                { "type": "chips", "chips": [{ "text": "No AI in the scoring", "tone": "accent" }] },
+                {
+                  "type": "text",
+                  "text": "Scoring is deterministic code against published criteria. A report service renders the PDF, and the score is saved back to the lead."
+                },
+                {
+                  "type": "chips",
+                  "chips": [
+                    {
+                      "text": "No AI in the scoring",
+                      "tone": "accent"
+                    }
+                  ]
+                },
                 {
                   "type": "rows",
-                  "rows": [{ "label": "PDF failed", "detail": "The consultant still gets the raw data by email", "chip": { "text": "Fallback", "tone": "problem" } }]
+                  "rows": [
+                    {
+                      "label": "PDF failed",
+                      "detail": "The consultant still gets the raw data by email",
+                      "chip": {
+                        "text": "Fallback",
+                        "tone": "problem"
+                      }
+                    }
+                  ]
                 }
               ]
             },
             {
               "title": "Writes the narrative summary",
               "tool": "claude",
-              "body": [{ "type": "text", "text": "Claude turns the numbers already computed into a readable summary. The prompt forbids recommending a pathway, and the output is checked against a schema." }]
+              "body": [
+                {
+                  "type": "text",
+                  "text": "Claude turns the numbers already computed into a readable summary. The prompt forbids recommending a pathway, and the output is checked against a schema."
+                }
+              ]
             },
             {
               "title": "Sends the report to the consultant only",
               "when": "Consultant decides",
               "tool": "email",
               "body": [
-                { "type": "text", "text": "The detailed report never goes straight to the applicant." },
-                { "type": "decision", "options": ["Book a consultation", "Ask for more information", "Close"], "by": "Licensed consultant (RCIC)" }
+                {
+                  "type": "text",
+                  "text": "The detailed report never goes straight to the applicant."
+                },
+                {
+                  "type": "decision",
+                  "options": [
+                    "Book a consultation",
+                    "Ask for more information",
+                    "Close"
+                  ],
+                  "by": "Licensed consultant (RCIC)"
+                }
               ]
             },
             {
@@ -127,31 +258,178 @@
                 {
                   "type": "rows",
                   "rows": [
-                    { "label": "Consent on file (CASL)", "detail": "Generic next steps and a booking link, no scores", "chip": { "text": "Send", "tone": "good" } },
-                    { "label": "No consent", "chip": { "text": "Skipped and logged", "tone": "neutral" } }
+                    {
+                      "label": "Consent on file (CASL)",
+                      "detail": "Generic next steps and a booking link, no scores",
+                      "chip": {
+                        "text": "Send",
+                        "tone": "good"
+                      }
+                    },
+                    {
+                      "label": "No consent",
+                      "chip": {
+                        "text": "Skipped and logged",
+                        "tone": "neutral"
+                      }
+                    }
                   ]
                 },
-                { "type": "text", "text": "The message body, a hash of it and the consent basis are stored as proof." }
+                {
+                  "type": "text",
+                  "text": "The message body, a hash of it and the consent basis are stored as proof."
+                }
               ]
             }
           ]
         },
-        { "id": "sorter", "name": "Sorter", "role": "Triage and routing", "icon": "list-filter", "status": "planned" },
-        { "id": "relay", "name": "Relay", "role": "Speed to lead", "icon": "zap", "status": "planned" },
-        { "id": "cadence", "name": "Cadence", "role": "Follow-up", "icon": "repeat", "status": "planned" },
-        { "id": "concierge", "name": "Concierge", "role": "Booking", "icon": "calendar-check", "status": "planned" }
+        {
+          "id": "relay",
+          "name": "Relay",
+          "role": "Pathway-tuned follow-up sequences so warm leads do not go cold",
+          "icon": "zap",
+          "status": "building"
+        },
+        {
+          "id": "cadence",
+          "name": "Cadence",
+          "role": "Times outreach to each lead’s behaviour",
+          "icon": "repeat",
+          "status": "planned"
+        },
+        {
+          "id": "concierge",
+          "name": "Concierge",
+          "role": "Answers routine client questions from a knowledge base, in their language",
+          "icon": "languages",
+          "status": "planned"
+        }
+      ]
+    },
+    {
+      "id": "intelligence",
+      "name": "Intelligence",
+      "color": "cyan",
+      "tools": [
+        "n8n",
+        "claude"
+      ],
+      "agents": [
+        {
+          "id": "watchtower",
+          "name": "Watchtower",
+          "role": "Monitors every program announcement, draw and policy change",
+          "icon": "radar",
+          "status": "live"
+        },
+        {
+          "id": "pulse",
+          "name": "Pulse",
+          "role": "Tracks competitor and wider industry activity",
+          "icon": "activity",
+          "status": "building"
+        },
+        {
+          "id": "cartographer",
+          "name": "Cartographer",
+          "role": "Maps provincial program requirements and keeps rules current",
+          "icon": "map",
+          "status": "planned"
+        },
+        {
+          "id": "beacon",
+          "name": "Beacon",
+          "role": "Spots trending immigration topics early",
+          "icon": "bell",
+          "status": "planned"
+        }
+      ]
+    },
+    {
+      "id": "content",
+      "name": "Content and marketing",
+      "color": "pink",
+      "tools": [
+        "n8n",
+        "claude"
+      ],
+      "agents": [
+        {
+          "id": "scribe",
+          "name": "Scribe",
+          "role": "Drafts social posts in the practice voice; nothing publishes without approval",
+          "icon": "pen-line",
+          "status": "live"
+        },
+        {
+          "id": "reel",
+          "name": "Reel",
+          "role": "Turns approved posts into short-form video scripts and shot lists",
+          "icon": "clapperboard",
+          "status": "planned"
+        },
+        {
+          "id": "curator",
+          "name": "Curator",
+          "role": "Keeps a library of best-performing content and refills calendar gaps",
+          "icon": "images",
+          "status": "planned"
+        },
+        {
+          "id": "herald",
+          "name": "Herald",
+          "role": "Writes the monthly client newsletter by case stage",
+          "icon": "megaphone",
+          "status": "planned"
+        }
+      ]
+    },
+    {
+      "id": "case-ops",
+      "name": "Case ops",
+      "color": "purple",
+      "tools": [
+        "n8n",
+        "postgres"
+      ],
+      "agents": [
+        {
+          "id": "docket",
+          "name": "Docket",
+          "role": "Chases missing documents and reminds ahead of deadlines",
+          "icon": "folder-clock",
+          "status": "building"
+        },
+        {
+          "id": "sorter",
+          "name": "Sorter",
+          "role": "Files incoming uploads to the right case and checklist item",
+          "icon": "folder-input",
+          "status": "planned"
+        },
+        {
+          "id": "postmark",
+          "name": "Postmark",
+          "role": "Prepares, sends and tracks official correspondence",
+          "icon": "mail",
+          "status": "planned"
+        }
       ]
     },
     {
       "id": "compliance",
-      "name": "Compliance",
+      "name": "Compliance and finance",
       "color": "gold",
-      "tools": ["n8n", "claude", "postgres"],
+      "tools": [
+        "n8n",
+        "claude",
+        "postgres"
+      ],
       "agents": [
         {
           "id": "custodian",
           "name": "Custodian",
-          "role": "Compliance gate on anything that publishes",
+          "role": "Checks uploaded documents and keeps files audit-ready",
           "icon": "shield-check",
           "status": "planned",
           "workflow": [
@@ -159,8 +437,33 @@
               "title": "Receives the draft",
               "tool": "n8n",
               "body": [
-                { "type": "text", "text": "Every outbound piece of content is routed here before it can be queued." },
-                { "type": "chips", "chips": [{ "text": "Web" }, { "text": "Social" }, { "text": "Email" }, { "text": "SMS" }, { "text": "Ads" }, { "text": "Client messages" }] }
+                {
+                  "type": "text",
+                  "text": "Every outbound piece of content is routed here before it can be queued."
+                },
+                {
+                  "type": "chips",
+                  "chips": [
+                    {
+                      "text": "Web"
+                    },
+                    {
+                      "text": "Social"
+                    },
+                    {
+                      "text": "Email"
+                    },
+                    {
+                      "text": "SMS"
+                    },
+                    {
+                      "text": "Ads"
+                    },
+                    {
+                      "text": "Client messages"
+                    }
+                  ]
+                }
               ]
             },
             {
@@ -170,19 +473,41 @@
                 {
                   "type": "rows",
                   "rows": [
-                    { "label": "Scope of practice", "detail": "No advice on a specific person's case" },
-                    { "label": "Regulator's advertising code", "detail": "No guarantees, no implied government ties" },
-                    { "label": "Anti-spam consent (CASL)", "detail": "Consent basis for every message" }
+                    {
+                      "label": "Scope of practice",
+                      "detail": "No advice on a specific person's case"
+                    },
+                    {
+                      "label": "Regulator's advertising code",
+                      "detail": "No guarantees, no implied government ties"
+                    },
+                    {
+                      "label": "Anti-spam consent (CASL)",
+                      "detail": "Consent basis for every message"
+                    }
                   ]
                 },
-                { "type": "text", "text": "It reviews as a compliance officer, not an editor. When in doubt, it flags." }
+                {
+                  "type": "text",
+                  "text": "It reviews as a compliance officer, not an editor. When in doubt, it flags."
+                }
               ]
             },
             {
               "title": "Passes or flags",
               "when": "Consultant decides",
               "tone": "good",
-              "body": [{ "type": "decision", "options": ["Approve", "Send back", "Reject"], "by": "Licensed consultant (RCIC)" }]
+              "body": [
+                {
+                  "type": "decision",
+                  "options": [
+                    "Approve",
+                    "Send back",
+                    "Reject"
+                  ],
+                  "by": "Licensed consultant (RCIC)"
+                }
+              ]
             }
           ]
         },
@@ -192,81 +517,106 @@
           "role": "Catches any workflow failure and alerts ops",
           "icon": "siren",
           "status": "building",
-          "tools": ["n8n", "postgres", "email"],
           "workflow": [
             {
               "title": "Catches the failure",
               "when": "On any error",
               "tool": "n8n",
               "tone": "problem",
-              "body": [{ "type": "text", "text": "A dedicated error workflow is attached to the others. It pulls out which workflow and which step failed, and why." }]
+              "body": [
+                {
+                  "type": "text",
+                  "text": "A dedicated error workflow is attached to the others. It pulls out which workflow and which step failed, and why."
+                }
+              ]
             },
             {
               "title": "Logs it",
               "tool": "postgres",
-              "body": [{ "type": "text", "text": "The failure is recorded as an event next to the lead's other events." }]
+              "body": [
+                {
+                  "type": "text",
+                  "text": "The failure is recorded as an event next to the lead's other events."
+                }
+              ]
             },
             {
               "title": "Emails ops",
               "tool": "email",
               "tone": "good",
-              "body": [{ "type": "text", "text": "An internal alert goes to the operator, so a broken step is fixed before a lead is lost." }]
+              "body": [
+                {
+                  "type": "text",
+                  "text": "An internal alert goes to the operator, so a broken step is fixed before a lead is lost."
+                }
+              ]
             }
           ]
         },
-        { "id": "ledger", "name": "Ledger", "role": "Reviews and proof", "icon": "star", "status": "planned" },
-        { "id": "registrar", "name": "Registrar", "role": "Audit log", "icon": "scroll-text", "status": "planned" }
-      ]
-    },
-    {
-      "id": "intelligence",
-      "name": "Intelligence",
-      "color": "cyan",
-      "tools": ["n8n", "claude"],
-      "agents": [
-        { "id": "watchtower", "name": "Watchtower", "role": "Monitors immigration program announcements", "icon": "radar", "status": "planned" },
-        { "id": "cartographer", "name": "Cartographer", "role": "Topic planner", "icon": "map", "status": "planned" },
-        { "id": "pulse", "name": "Pulse", "role": "Competitor watch", "icon": "activity", "status": "planned" }
-      ]
-    },
-    {
-      "id": "content",
-      "name": "Content and marketing",
-      "color": "pink",
-      "tools": ["n8n", "claude"],
-      "agents": [
-        { "id": "scribe", "name": "Scribe", "role": "Long-form writer", "icon": "pen-line", "status": "planned" },
-        { "id": "reel", "name": "Reel", "role": "Short-form video", "icon": "clapperboard", "status": "planned" },
-        { "id": "curator", "name": "Curator", "role": "Asset builder", "icon": "images", "status": "planned" },
-        { "id": "herald", "name": "Herald", "role": "Social publisher", "icon": "megaphone", "status": "planned" },
-        { "id": "postmark", "name": "Postmark", "role": "Email engine", "icon": "mail", "status": "planned" }
-      ]
-    },
-    {
-      "id": "case-ops",
-      "name": "Case ops",
-      "color": "purple",
-      "tools": ["n8n", "postgres"],
-      "agents": [
-        { "id": "docket", "name": "Docket", "role": "Documents and deadlines", "icon": "folder-clock", "status": "planned" },
-        { "id": "beacon", "name": "Beacon", "role": "Client updates", "icon": "bell", "status": "planned" },
-        { "id": "abacus", "name": "Abacus", "role": "Attribution", "icon": "chart-line", "status": "planned" }
+        {
+          "id": "ledger",
+          "name": "Ledger",
+          "role": "Reconciles retainers and invoices against the trust ledger",
+          "icon": "landmark",
+          "status": "planned"
+        },
+        {
+          "id": "abacus",
+          "name": "Abacus",
+          "role": "Flags unusual billing patterns early",
+          "icon": "chart-line",
+          "status": "planned"
+        },
+        {
+          "id": "registrar",
+          "name": "Registrar",
+          "role": "Tracks training hours and licence renewal deadlines",
+          "icon": "badge-check",
+          "status": "planned"
+        }
       ]
     }
   ],
   "flows": [
-    { "from": "sentinel", "to": "assessor", "label": "New lead" },
-    { "from": "assessor", "to": "sorter", "label": "Scored lead" },
-    { "from": "sorter", "to": "relay", "label": "New leads" },
-    { "from": "sorter", "to": "cadence", "label": "Follow-ups due" },
-    { "from": "relay", "to": "concierge", "label": "Ready to book" },
-    { "from": "watchtower", "to": "cartographer", "label": "Program changes" },
-    { "from": "cartographer", "to": "scribe", "label": "Topics" },
-    { "from": "scribe", "to": "custodian", "label": "Drafts" },
-    { "from": "reel", "to": "custodian", "label": "Drafts" },
-    { "from": "custodian", "to": "herald", "label": "Approved posts" },
-    { "from": "custodian", "to": "postmark", "label": "Approved emails" },
-    { "from": "assessor", "to": "error-handler", "label": "Failures" },
-    { "from": "concierge", "to": "docket", "label": "New client" }
+    {
+      "from": "sentinel",
+      "to": "assessor",
+      "label": "New lead"
+    },
+    {
+      "from": "assessor",
+      "to": "relay",
+      "label": "Scored lead"
+    },
+    {
+      "from": "watchtower",
+      "to": "scribe",
+      "label": "Draw data"
+    },
+    {
+      "from": "watchtower",
+      "to": "assessor",
+      "label": "Re-score"
+    },
+    {
+      "from": "scribe",
+      "to": "reel",
+      "label": "Approved posts"
+    },
+    {
+      "from": "relay",
+      "to": "docket",
+      "label": "New client"
+    },
+    {
+      "from": "assessor",
+      "to": "error-handler",
+      "label": "Failures"
+    },
+    {
+      "from": "docket",
+      "to": "custodian",
+      "label": "Uploads"
+    }
   ]
 }

@@ -1,0 +1,349 @@
+{
+  "client": {
+    "name": "MS Aesthetics",
+    "logo": "msaesthetics-logo.png"
+  },
+  "hub": {
+    "title": "MS Aesthetics OS",
+    "kicker": "AI Advanced Gen · Agent map"
+  },
+  "approver": "Clinic operations lead",
+  "tools": {
+    "website": {
+      "name": "msaesthetic.ca",
+      "icon": "globe"
+    },
+    "n8n": {
+      "name": "n8n",
+      "icon": "workflow"
+    },
+    "postgres": {
+      "name": "PostgreSQL",
+      "icon": "database"
+    },
+    "claude": {
+      "name": "Claude",
+      "logo": "claude"
+    },
+    "email": {
+      "name": "Email",
+      "icon": "mail"
+    },
+    "sms": {
+      "name": "SMS",
+      "icon": "message-square"
+    },
+    "higgsfield": {
+      "name": "Higgsfield",
+      "icon": "image"
+    }
+  },
+  "departments": [
+    {
+      "id": "front-desk",
+      "name": "Front desk",
+      "color": "pink",
+      "tools": [
+        "website",
+        "n8n"
+      ],
+      "agents": [
+        {
+          "id": "inquiry-capture",
+          "name": "Inquiry Capture",
+          "role": "Captures every website form into one pipeline",
+          "icon": "inbox",
+          "status": "building",
+          "workflow": [
+            {
+              "title": "A visitor submits a form",
+              "when": "On submit",
+              "tool": "website",
+              "body": [
+                {
+                  "type": "text",
+                  "text": "The rebuilt website posts each form to an n8n webhook."
+                }
+              ]
+            },
+            {
+              "title": "The inquiry is logged",
+              "tool": "postgres",
+              "body": [
+                {
+                  "type": "text",
+                  "text": "One record per inquiry, with the treatment they asked about."
+                }
+              ]
+            },
+            {
+              "title": "Operations is notified",
+              "when": "Staff decide",
+              "tone": "good",
+              "body": [
+                {
+                  "type": "text",
+                  "text": "The clinic operations lead gets the notification and decides the next step."
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "id": "booking-concierge",
+          "name": "Booking Concierge",
+          "role": "Guides a client from inquiry to a booked appointment",
+          "icon": "calendar-check",
+          "status": "planned"
+        },
+        {
+          "id": "reminders",
+          "name": "Reminders",
+          "role": "Confirms appointments and reduces no-shows",
+          "icon": "bell",
+          "status": "planned"
+        },
+        {
+          "id": "reactivation",
+          "name": "Reactivation",
+          "role": "Brings back clients who have not visited in a while",
+          "icon": "repeat",
+          "status": "planned"
+        }
+      ]
+    },
+    {
+      "id": "records",
+      "name": "Client records",
+      "color": "blue",
+      "tools": [
+        "postgres",
+        "n8n"
+      ],
+      "agents": [
+        {
+          "id": "contact-migration",
+          "name": "Contact Migration",
+          "role": "Moved 1,000+ cleaned contacts off the old CRM",
+          "icon": "database",
+          "status": "live",
+          "workflow": [
+            {
+              "title": "Exported the old CRM",
+              "body": [
+                {
+                  "type": "text",
+                  "text": "Every contact was exported from the previous platform."
+                }
+              ]
+            },
+            {
+              "title": "Cleaned the data",
+              "body": [
+                {
+                  "type": "text",
+                  "text": "Duplicates and broken records were removed, leaving 1,000+ clean contacts."
+                }
+              ]
+            },
+            {
+              "title": "Loaded the new system",
+              "tone": "good",
+              "body": [
+                {
+                  "type": "text",
+                  "text": "The cleaned contacts are the starting point for the operating system."
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "id": "record-sync",
+          "name": "Record Sync",
+          "role": "Keeps one record per client across tools",
+          "icon": "refresh-cw",
+          "status": "building"
+        },
+        {
+          "id": "privacy-guard",
+          "name": "Privacy Guard",
+          "role": "Keeps health information handling in line with privacy law",
+          "icon": "shield-check",
+          "status": "planned"
+        },
+        {
+          "id": "treatment-history",
+          "name": "Treatment History",
+          "role": "Shows each client’s visits and treatments in one place",
+          "icon": "scroll-text",
+          "status": "planned"
+        }
+      ]
+    },
+    {
+      "id": "marketing",
+      "name": "Marketing",
+      "color": "purple",
+      "tools": [
+        "claude",
+        "higgsfield"
+      ],
+      "agents": [
+        {
+          "id": "content-studio",
+          "name": "Content Studio",
+          "role": "Produces imagery and copy for campaigns",
+          "icon": "images",
+          "status": "building"
+        },
+        {
+          "id": "social-scheduler",
+          "name": "Social Scheduler",
+          "role": "Plans and queues posts for approval",
+          "icon": "calendar-check",
+          "status": "planned"
+        },
+        {
+          "id": "review-requests",
+          "name": "Review Requests",
+          "role": "Asks happy clients for a review after a visit",
+          "icon": "star",
+          "status": "planned"
+        },
+        {
+          "id": "campaigns",
+          "name": "Campaigns",
+          "role": "Sends promotions to the right client segment",
+          "icon": "megaphone",
+          "status": "planned"
+        }
+      ]
+    },
+    {
+      "id": "academy",
+      "name": "Training academy",
+      "color": "gold",
+      "tools": [
+        "claude",
+        "higgsfield"
+      ],
+      "agents": [
+        {
+          "id": "deck-builder",
+          "name": "Deck Builder",
+          "role": "Builds the training decks for the academy",
+          "icon": "file-text",
+          "status": "building"
+        },
+        {
+          "id": "workshop-planner",
+          "name": "Workshop Planner",
+          "role": "Plans the international workshop tour",
+          "icon": "map",
+          "status": "planned"
+        },
+        {
+          "id": "enrolment",
+          "name": "Enrolment",
+          "role": "Registers students and tracks payments",
+          "icon": "users",
+          "status": "planned"
+        },
+        {
+          "id": "certificates",
+          "name": "Certificates",
+          "role": "Issues certificates when training is complete",
+          "icon": "award",
+          "status": "planned"
+        }
+      ]
+    },
+    {
+      "id": "operations",
+      "name": "Operations",
+      "color": "cyan",
+      "tools": [
+        "postgres",
+        "email"
+      ],
+      "agents": [
+        {
+          "id": "os-dashboard",
+          "name": "OS Dashboard",
+          "role": "One view where staff can see everything, behind a login",
+          "icon": "layout-dashboard",
+          "status": "building"
+        },
+        {
+          "id": "staff-alerts",
+          "name": "Staff Alerts",
+          "role": "Sends system notifications to the operations lead",
+          "icon": "bell",
+          "status": "live"
+        },
+        {
+          "id": "reporting",
+          "name": "Reporting",
+          "role": "Weekly numbers on inquiries, bookings and campaigns",
+          "icon": "chart-line",
+          "status": "planned"
+        },
+        {
+          "id": "error-handler",
+          "name": "Error Handler",
+          "role": "Catches any workflow failure and alerts ops",
+          "icon": "siren",
+          "status": "planned"
+        }
+      ]
+    }
+  ],
+  "flows": [
+    {
+      "from": "inquiry-capture",
+      "to": "booking-concierge",
+      "label": "New inquiry"
+    },
+    {
+      "from": "booking-concierge",
+      "to": "reminders",
+      "label": "Booked"
+    },
+    {
+      "from": "contact-migration",
+      "to": "record-sync",
+      "label": "Clean contacts"
+    },
+    {
+      "from": "record-sync",
+      "to": "reactivation",
+      "label": "Lapsed clients"
+    },
+    {
+      "from": "record-sync",
+      "to": "campaigns",
+      "label": "Segments"
+    },
+    {
+      "from": "content-studio",
+      "to": "social-scheduler",
+      "label": "Assets"
+    },
+    {
+      "from": "inquiry-capture",
+      "to": "staff-alerts",
+      "label": "Alerts"
+    },
+    {
+      "from": "deck-builder",
+      "to": "workshop-planner",
+      "label": "Decks"
+    },
+    {
+      "from": "record-sync",
+      "to": "os-dashboard",
+      "label": "Records"
+    }
+  ]
+}

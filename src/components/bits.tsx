@@ -49,8 +49,9 @@ export function Chip({ chip }: { chip: ChipDef }) {
   return <span className={`chip chip-${chip.tone ?? 'neutral'}`}>{chip.text}</span>
 }
 
-export function LiveChip({ status = 'live' }: { status?: 'live' | 'building' | 'planned' }) {
+export function LiveChip({ status = 'live' }: { status?: 'live' | 'building' | 'planned' | 'shipped' }) {
   if (status === 'building') return <span className="chip chip-accent chip-live chip-building">in build</span>
+  if (status === 'shipped') return <span className="chip chip-good chip-live">shipped</span>
   if (status === 'planned') return <span className="chip chip-neutral chip-live chip-planned">planned</span>
   return (
     <span className="chip chip-good chip-live">

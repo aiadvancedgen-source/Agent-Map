@@ -1,22 +1,52 @@
 {
-  "client": { "name": "Nexcar", "logo": "nexcar-logo.png" },
-  "hub": { "title": "Nexcar Sales OS", "kicker": "AI Advanced Gen · Agent map" },
+  "client": {
+    "name": "Nexcar",
+    "logo": "nexcar-logo.png"
+  },
+  "hub": {
+    "title": "Nexcar Sales OS",
+    "kicker": "AI Advanced Gen · Agent map"
+  },
   "approver": "Humza",
   "tools": {
-    "d2c-media": { "name": "D2C Media", "logo": "d2c-media" },
-    "claude": { "name": "Claude", "logo": "claude" },
-    "facebook-marketplace": { "name": "Facebook Marketplace", "logo": "facebook-marketplace" },
-    "chrome-extension": { "name": "Chrome extension", "logo": "chrome-extension" },
-    "messenger": { "name": "Messenger", "logo": "messenger" },
-    "nexcar-ca": { "name": "nexcar.ca", "logo": "client" },
-    "local-server": { "name": "Local server", "icon": "server" }
+    "d2c-media": {
+      "name": "D2C Media",
+      "logo": "d2c-media"
+    },
+    "claude": {
+      "name": "Claude",
+      "logo": "claude"
+    },
+    "facebook-marketplace": {
+      "name": "Facebook Marketplace",
+      "logo": "facebook-marketplace"
+    },
+    "chrome-extension": {
+      "name": "Chrome extension",
+      "logo": "chrome-extension"
+    },
+    "messenger": {
+      "name": "Messenger",
+      "logo": "messenger"
+    },
+    "nexcar-ca": {
+      "name": "nexcar.ca",
+      "logo": "client"
+    },
+    "local-server": {
+      "name": "Local server",
+      "icon": "server"
+    }
   },
   "departments": [
     {
       "id": "lead-follow-up",
       "name": "Lead follow-up",
       "color": "orange",
-      "tools": ["d2c-media", "claude"],
+      "tools": [
+        "d2c-media",
+        "claude"
+      ],
       "agents": [
         {
           "id": "lead-triage",
@@ -29,14 +59,30 @@
               "when": "Every 10 min",
               "tool": "d2c-media",
               "body": [
-                { "type": "text", "text": "Reads the open leads from D2C Media, with their tasks, notes, texts and emails." },
-                { "type": "chips", "chips": [{ "text": "To contact" }, { "text": "Follow-up manually" }] }
+                {
+                  "type": "text",
+                  "text": "Reads the open leads from D2C Media, with their tasks, notes, texts and emails."
+                },
+                {
+                  "type": "chips",
+                  "chips": [
+                    {
+                      "text": "To contact"
+                    },
+                    {
+                      "text": "Follow-up manually"
+                    }
+                  ]
+                }
               ]
             },
             {
               "title": "Reads each lead's history",
               "body": [
-                { "type": "text", "text": "The customer's own message, everything sent so far, and when the last contact was." }
+                {
+                  "type": "text",
+                  "text": "The customer's own message, everything sent so far, and when the last contact was."
+                }
               ]
             },
             {
@@ -45,10 +91,34 @@
                 {
                   "type": "rows",
                   "rows": [
-                    { "label": "Customer texted, waiting on a reply", "chip": { "text": "Reply first", "tone": "problem" } },
-                    { "label": "New lead, no reply yet", "chip": { "text": "Speed-to-Lead", "tone": "accent" } },
-                    { "label": "Contacted, follow-up due", "chip": { "text": "Follow-Up", "tone": "accent" } },
-                    { "label": "Quiet for 14+ days", "chip": { "text": "Re-Engage", "tone": "accent" } }
+                    {
+                      "label": "Customer texted, waiting on a reply",
+                      "chip": {
+                        "text": "Reply first",
+                        "tone": "problem"
+                      }
+                    },
+                    {
+                      "label": "New lead, no reply yet",
+                      "chip": {
+                        "text": "Speed-to-Lead",
+                        "tone": "accent"
+                      }
+                    },
+                    {
+                      "label": "Contacted, follow-up due",
+                      "chip": {
+                        "text": "Follow-Up",
+                        "tone": "accent"
+                      }
+                    },
+                    {
+                      "label": "Quiet for 14+ days",
+                      "chip": {
+                        "text": "Re-Engage",
+                        "tone": "accent"
+                      }
+                    }
                   ]
                 }
               ]
@@ -59,20 +129,39 @@
                 {
                   "type": "chips",
                   "chips": [
-                    { "text": "Availability" },
-                    { "text": "Price" },
-                    { "text": "Financing" },
-                    { "text": "Trade-in" },
-                    { "text": "Visit" },
-                    { "text": "History" },
-                    { "text": "Photos" },
-                    { "text": "Warranty" },
-                    { "text": "Delivery" }
+                    {
+                      "text": "Availability"
+                    },
+                    {
+                      "text": "Price"
+                    },
+                    {
+                      "text": "Financing"
+                    },
+                    {
+                      "text": "Trade-in"
+                    },
+                    {
+                      "text": "Visit"
+                    },
+                    {
+                      "text": "History"
+                    },
+                    {
+                      "text": "Photos"
+                    },
+                    {
+                      "text": "Warranty"
+                    },
+                    {
+                      "text": "Delivery"
+                    }
                   ]
                 }
               ]
             }
-          ]
+          ],
+          "status": "live"
         },
         {
           "id": "speed-to-lead",
@@ -84,12 +173,20 @@
               "title": "A new lead lands",
               "when": "New lead",
               "tool": "d2c-media",
-              "body": [{ "type": "text", "text": "Picked up from D2C Media on the next sync." }]
+              "body": [
+                {
+                  "type": "text",
+                  "text": "Picked up from D2C Media on the next sync."
+                }
+              ]
             },
             {
               "title": "Matches the car on the live lot",
               "body": [
-                { "type": "text", "text": "By stock number, or by year, make and model. If the car has sold, the reply offers the closest cars in stock instead." }
+                {
+                  "type": "text",
+                  "text": "By stock number, or by year, make and model. If the car has sold, the reply offers the closest cars in stock instead."
+                }
               ]
             },
             {
@@ -102,7 +199,18 @@
                   "to": "the lead",
                   "text": "Hi [first name], Humza here from Nexcar. Thanks for asking about the [year make model]. [Answers what they asked.] When works for you to come see it?"
                 },
-                { "type": "chips", "chips": [{ "text": "Drafted with Claude", "tone": "accent" }, { "text": "Template if Claude is unavailable" }] }
+                {
+                  "type": "chips",
+                  "chips": [
+                    {
+                      "text": "Drafted with Claude",
+                      "tone": "accent"
+                    },
+                    {
+                      "text": "Template if Claude is unavailable"
+                    }
+                  ]
+                }
               ]
             },
             {
@@ -111,11 +219,21 @@
               "tool": "d2c-media",
               "tone": "good",
               "body": [
-                { "type": "decision", "options": ["Send text", "Send email"] },
-                { "type": "text", "text": "Every message goes out through D2C Media, so the CRM keeps the full record." }
+                {
+                  "type": "decision",
+                  "options": [
+                    "Send text",
+                    "Send email"
+                  ]
+                },
+                {
+                  "type": "text",
+                  "text": "Every message goes out through D2C Media, so the CRM keeps the full record."
+                }
               ]
             }
-          ]
+          ],
+          "status": "building"
         },
         {
           "id": "follow-up",
@@ -127,7 +245,12 @@
               "title": "Checks which follow-ups are due",
               "when": "Daily",
               "tool": "d2c-media",
-              "body": [{ "type": "text", "text": "Works out the day's due follow-ups from each lead's last contact." }]
+              "body": [
+                {
+                  "type": "text",
+                  "text": "Works out the day's due follow-ups from each lead's last contact."
+                }
+              ]
             },
             {
               "title": "First chase",
@@ -146,15 +269,33 @@
               "title": "Second chase",
               "when": "Day 3",
               "tool": "claude",
-              "body": [{ "type": "text", "text": "A new draft each time, written from the full history: their message, the car, your notes." }]
+              "body": [
+                {
+                  "type": "text",
+                  "text": "A new draft each time, written from the full history: their message, the car, your notes."
+                }
+              ]
             },
-            { "title": "Third chase", "when": "Day 7", "tool": "claude" },
-            { "title": "Fourth chase", "when": "Day 14", "tool": "claude" },
+            {
+              "title": "Third chase",
+              "when": "Day 7",
+              "tool": "claude"
+            },
+            {
+              "title": "Fourth chase",
+              "when": "Day 14",
+              "tool": "claude"
+            },
             {
               "title": "Keeps in touch",
               "when": "Then monthly",
               "tool": "claude",
-              "body": [{ "type": "text", "text": "After day 14 the lead moves to one follow-up a month." }]
+              "body": [
+                {
+                  "type": "text",
+                  "text": "After day 14 the lead moves to one follow-up a month."
+                }
+              ]
             },
             {
               "title": "Humza approves and sends",
@@ -162,11 +303,21 @@
               "tool": "d2c-media",
               "tone": "good",
               "body": [
-                { "type": "decision", "options": ["Send text", "Send email"] },
-                { "type": "text", "text": "Nothing is sent without approval." }
+                {
+                  "type": "decision",
+                  "options": [
+                    "Send text",
+                    "Send email"
+                  ]
+                },
+                {
+                  "type": "text",
+                  "text": "Nothing is sent without approval."
+                }
               ]
             }
-          ]
+          ],
+          "status": "building"
         },
         {
           "id": "re-engage",
@@ -178,11 +329,21 @@
               "title": "Finds leads that have gone quiet",
               "when": "14+ days quiet",
               "tool": "d2c-media",
-              "body": [{ "type": "text", "text": "Leads with no contact for 14 days or more." }]
+              "body": [
+                {
+                  "type": "text",
+                  "text": "Leads with no contact for 14 days or more."
+                }
+              ]
             },
             {
               "title": "Checks the car is still on the lot",
-              "body": [{ "type": "text", "text": "If it has sold, the message offers the closest cars in stock instead." }]
+              "body": [
+                {
+                  "type": "text",
+                  "text": "If it has sold, the message offers the closest cars in stock instead."
+                }
+              ]
             },
             {
               "title": "Drafts a fresh opener",
@@ -201,9 +362,18 @@
               "when": "You decide",
               "tool": "d2c-media",
               "tone": "good",
-              "body": [{ "type": "decision", "options": ["Send text", "Send email"] }]
+              "body": [
+                {
+                  "type": "decision",
+                  "options": [
+                    "Send text",
+                    "Send email"
+                  ]
+                }
+              ]
             }
-          ]
+          ],
+          "status": "building"
         }
       ]
     },
@@ -217,17 +387,30 @@
           "name": "Marketplace Poster",
           "role": "Lists each car on Facebook",
           "icon": "send",
-          "tools": ["facebook-marketplace", "chrome-extension"],
+          "tools": [
+            "facebook-marketplace",
+            "chrome-extension"
+          ],
           "workflow": [
             {
               "title": "You pick a car",
               "when": "On click",
-              "body": [{ "type": "text", "text": "Press \"Post to FB Marketplace\" on any car in the dashboard." }]
+              "body": [
+                {
+                  "type": "text",
+                  "text": "Press \"Post to FB Marketplace\" on any car in the dashboard."
+                }
+              ]
             },
             {
               "title": "Opens the Marketplace vehicle form",
               "tool": "chrome-extension",
-              "body": [{ "type": "text", "text": "A new Facebook tab opens on the create-vehicle page." }]
+              "body": [
+                {
+                  "type": "text",
+                  "text": "A new Facebook tab opens on the create-vehicle page."
+                }
+              ]
             },
             {
               "title": "Fills the whole form",
@@ -236,9 +419,29 @@
                 {
                   "type": "rows",
                   "rows": [
-                    { "label": "Title, price, description", "chip": { "text": "Filled", "tone": "good" } },
-                    { "label": "Vehicle details", "detail": "Year, make, model, mileage, condition, body style, transmission, fuel, colours", "chip": { "text": "Filled", "tone": "good" } },
-                    { "label": "Photos", "detail": "From the nexcar.ca listing, up to 20", "chip": { "text": "Added", "tone": "good" } }
+                    {
+                      "label": "Title, price, description",
+                      "chip": {
+                        "text": "Filled",
+                        "tone": "good"
+                      }
+                    },
+                    {
+                      "label": "Vehicle details",
+                      "detail": "Year, make, model, mileage, condition, body style, transmission, fuel, colours",
+                      "chip": {
+                        "text": "Filled",
+                        "tone": "good"
+                      }
+                    },
+                    {
+                      "label": "Photos",
+                      "detail": "From the nexcar.ca listing, up to 20",
+                      "chip": {
+                        "text": "Added",
+                        "tone": "good"
+                      }
+                    }
                   ]
                 }
               ]
@@ -247,8 +450,19 @@
               "title": "Flags anything it could not set",
               "tone": "problem",
               "body": [
-                { "type": "chips", "chips": [{ "text": "Set by hand", "tone": "problem" }] },
-                { "type": "text", "text": "Any field it could not fill is marked, so you can set it yourself." }
+                {
+                  "type": "chips",
+                  "chips": [
+                    {
+                      "text": "Set by hand",
+                      "tone": "problem"
+                    }
+                  ]
+                },
+                {
+                  "type": "text",
+                  "text": "Any field it could not fill is marked, so you can set it yourself."
+                }
               ]
             },
             {
@@ -257,37 +471,76 @@
               "tool": "facebook-marketplace",
               "tone": "good",
               "body": [
-                { "type": "decision", "options": ["Publish on Facebook"] },
-                { "type": "text", "text": "Nothing is published until you press Facebook's own Publish button." }
+                {
+                  "type": "decision",
+                  "options": [
+                    "Publish on Facebook"
+                  ]
+                },
+                {
+                  "type": "text",
+                  "text": "Nothing is published until you press Facebook's own Publish button."
+                }
               ]
             },
             {
               "title": "Reports the live listing back",
               "tone": "good",
               "body": [
-                { "type": "text", "text": "The dashboard records that the car is live, with its listing link." },
-                { "type": "chips", "chips": [{ "text": "Live on Marketplace", "tone": "good" }] }
+                {
+                  "type": "text",
+                  "text": "The dashboard records that the car is live, with its listing link."
+                },
+                {
+                  "type": "chips",
+                  "chips": [
+                    {
+                      "text": "Live on Marketplace",
+                      "tone": "good"
+                    }
+                  ]
+                }
               ]
             }
-          ]
+          ],
+          "status": "live"
         },
         {
           "id": "marketplace-inbox",
           "name": "Marketplace Inbox",
           "role": "Drafts replies to buyers",
           "icon": "message-circle",
-          "tools": ["messenger", "claude"],
+          "tools": [
+            "messenger",
+            "claude"
+          ],
           "workflow": [
             {
               "title": "Reads your Marketplace conversations",
               "tool": "messenger",
-              "body": [{ "type": "text", "text": "Buyer, car, last message and unread state go to the dashboard's Inbox." }]
+              "body": [
+                {
+                  "type": "text",
+                  "text": "Buyer, car, last message and unread state go to the dashboard's Inbox."
+                }
+              ]
             },
             {
               "title": "Matches the car",
               "body": [
-                { "type": "text", "text": "By the Facebook listing it was posted as, or by year, make and model." },
-                { "type": "chips", "chips": [{ "text": "Sold cars flagged red", "tone": "problem" }] }
+                {
+                  "type": "text",
+                  "text": "By the Facebook listing it was posted as, or by year, make and model."
+                },
+                {
+                  "type": "chips",
+                  "chips": [
+                    {
+                      "text": "Sold cars flagged red",
+                      "tone": "problem"
+                    }
+                  ]
+                }
               ]
             },
             {
@@ -296,13 +549,27 @@
                 {
                   "type": "chips",
                   "chips": [
-                    { "text": "Available?" },
-                    { "text": "Price" },
-                    { "text": "Book a visit" },
-                    { "text": "Financing" },
-                    { "text": "Where and hours" },
-                    { "text": "Carfax" },
-                    { "text": "Trade-in" }
+                    {
+                      "text": "Available?"
+                    },
+                    {
+                      "text": "Price"
+                    },
+                    {
+                      "text": "Book a visit"
+                    },
+                    {
+                      "text": "Financing"
+                    },
+                    {
+                      "text": "Where and hours"
+                    },
+                    {
+                      "text": "Carfax"
+                    },
+                    {
+                      "text": "Trade-in"
+                    }
                   ]
                 }
               ]
@@ -314,11 +581,20 @@
                 {
                   "type": "chat",
                   "messages": [
-                    { "side": "them", "text": "Is this still available?" },
-                    { "side": "agent", "text": "Hi [first name], Humza here from Nexcar. Yes, the [year make model] is available. When would you like to come see it?" }
+                    {
+                      "side": "them",
+                      "text": "Is this still available?"
+                    },
+                    {
+                      "side": "agent",
+                      "text": "Hi [first name], Humza here from Nexcar. Yes, the [year make model] is available. When would you like to come see it?"
+                    }
                   ]
                 },
-                { "type": "text", "text": "Drafts use real inventory data. If the car has sold, the reply offers similar cars instead." }
+                {
+                  "type": "text",
+                  "text": "Drafts use real inventory data. If the car has sold, the reply offers similar cars instead."
+                }
               ]
             },
             {
@@ -327,28 +603,50 @@
               "tool": "messenger",
               "tone": "good",
               "body": [
-                { "type": "decision", "options": ["Insert reply"] },
-                { "type": "text", "text": "Insert reply puts the text in the message box. Nothing is sent automatically." }
+                {
+                  "type": "decision",
+                  "options": [
+                    "Insert reply"
+                  ]
+                },
+                {
+                  "type": "text",
+                  "text": "Insert reply puts the text in the message box. Nothing is sent automatically."
+                }
               ]
             }
-          ]
+          ],
+          "status": "live"
         },
         {
           "id": "listing-sync",
           "name": "Listing Sync",
           "role": "Builds the take-down list for sold cars",
           "icon": "list-checks",
-          "tools": ["facebook-marketplace", "nexcar-ca"],
+          "tools": [
+            "facebook-marketplace",
+            "nexcar-ca"
+          ],
           "workflow": [
             {
               "title": "Reads your Facebook listings",
               "tool": "facebook-marketplace",
-              "body": [{ "type": "text", "text": "From the \"Your listings\" page." }]
+              "body": [
+                {
+                  "type": "text",
+                  "text": "From the \"Your listings\" page."
+                }
+              ]
             },
             {
               "title": "Matches each listing to a car",
               "tool": "nexcar-ca",
-              "body": [{ "type": "text", "text": "Every listing is paired with a car from the inventory." }]
+              "body": [
+                {
+                  "type": "text",
+                  "text": "Every listing is paired with a car from the inventory."
+                }
+              ]
             },
             {
               "title": "Builds two lists",
@@ -356,14 +654,32 @@
                 {
                   "type": "rows",
                   "rows": [
-                    { "label": "Post queue", "detail": "Cars not yet on Marketplace", "chip": { "text": "To post", "tone": "accent" } },
-                    { "label": "Take-down list", "detail": "Sold or gone cars still listed", "chip": { "text": "Take down", "tone": "problem" } }
+                    {
+                      "label": "Post queue",
+                      "detail": "Cars not yet on Marketplace",
+                      "chip": {
+                        "text": "To post",
+                        "tone": "accent"
+                      }
+                    },
+                    {
+                      "label": "Take-down list",
+                      "detail": "Sold or gone cars still listed",
+                      "chip": {
+                        "text": "Take down",
+                        "tone": "problem"
+                      }
+                    }
                   ]
                 },
-                { "type": "text", "text": "Both lists show on the dashboard's Home screen." }
+                {
+                  "type": "text",
+                  "text": "Both lists show on the dashboard's Home screen."
+                }
               ]
             }
-          ]
+          ],
+          "status": "building"
         }
       ]
     },
@@ -371,7 +687,9 @@
       "id": "marketing",
       "name": "Marketing",
       "color": "purple",
-      "tools": ["nexcar-ca"],
+      "tools": [
+        "nexcar-ca"
+      ],
       "agents": [
         {
           "id": "marketplace-copy",
@@ -382,15 +700,29 @@
             {
               "title": "Reads the car's listing",
               "tool": "nexcar-ca",
-              "body": [{ "type": "text", "text": "Specs, equipment, price and photos from nexcar.ca." }]
+              "body": [
+                {
+                  "type": "text",
+                  "text": "Specs, equipment, price and photos from nexcar.ca."
+                }
+              ]
             },
-            { "title": "Writes the Facebook Marketplace copy", "when": "Per car" },
+            {
+              "title": "Writes the Facebook Marketplace copy",
+              "when": "Per car"
+            },
             {
               "title": "Adds it to the queue",
               "tone": "good",
-              "body": [{ "type": "text", "text": "Copy waits in the Marketing queue." }]
+              "body": [
+                {
+                  "type": "text",
+                  "text": "Copy waits in the Marketing queue."
+                }
+              ]
             }
-          ]
+          ],
+          "status": "live"
         },
         {
           "id": "instagram-copy",
@@ -401,15 +733,29 @@
             {
               "title": "Reads the car's listing",
               "tool": "nexcar-ca",
-              "body": [{ "type": "text", "text": "Specs, equipment, price and photos from nexcar.ca." }]
+              "body": [
+                {
+                  "type": "text",
+                  "text": "Specs, equipment, price and photos from nexcar.ca."
+                }
+              ]
             },
-            { "title": "Writes the Instagram copy", "when": "Per car" },
+            {
+              "title": "Writes the Instagram copy",
+              "when": "Per car"
+            },
             {
               "title": "Adds it to the queue",
               "tone": "good",
-              "body": [{ "type": "text", "text": "Copy waits in the Marketing queue." }]
+              "body": [
+                {
+                  "type": "text",
+                  "text": "Copy waits in the Marketing queue."
+                }
+              ]
             }
-          ]
+          ],
+          "status": "live"
         },
         {
           "id": "video-prompts",
@@ -420,15 +766,29 @@
             {
               "title": "Reads the car's listing",
               "tool": "nexcar-ca",
-              "body": [{ "type": "text", "text": "Specs, equipment, price and photos from nexcar.ca." }]
+              "body": [
+                {
+                  "type": "text",
+                  "text": "Specs, equipment, price and photos from nexcar.ca."
+                }
+              ]
             },
-            { "title": "Writes the video prompts", "when": "Per car" },
+            {
+              "title": "Writes the video prompts",
+              "when": "Per car"
+            },
             {
               "title": "Adds them to the queue",
               "tone": "good",
-              "body": [{ "type": "text", "text": "Prompts wait in the Marketing queue." }]
+              "body": [
+                {
+                  "type": "text",
+                  "text": "Prompts wait in the Marketing queue."
+                }
+              ]
             }
-          ]
+          ],
+          "status": "live"
         },
         {
           "id": "sms-copy",
@@ -439,15 +799,29 @@
             {
               "title": "Reads the car's listing",
               "tool": "nexcar-ca",
-              "body": [{ "type": "text", "text": "Specs, equipment, price and photos from nexcar.ca." }]
+              "body": [
+                {
+                  "type": "text",
+                  "text": "Specs, equipment, price and photos from nexcar.ca."
+                }
+              ]
             },
-            { "title": "Writes the SMS copy", "when": "Per car" },
+            {
+              "title": "Writes the SMS copy",
+              "when": "Per car"
+            },
             {
               "title": "Adds it to the queue",
               "tone": "good",
-              "body": [{ "type": "text", "text": "Copy waits in the Marketing queue." }]
+              "body": [
+                {
+                  "type": "text",
+                  "text": "Copy waits in the Marketing queue."
+                }
+              ]
             }
-          ]
+          ],
+          "status": "live"
         }
       ]
     },
@@ -455,7 +829,10 @@
       "id": "inventory",
       "name": "Inventory",
       "color": "gold",
-      "tools": ["nexcar-ca", "local-server"],
+      "tools": [
+        "nexcar-ca",
+        "local-server"
+      ],
       "agents": [
         {
           "id": "inventory-sync",
@@ -467,7 +844,12 @@
               "title": "Starts every morning",
               "when": "7:00 AM daily",
               "tool": "local-server",
-              "body": [{ "type": "text", "text": "A scheduled task on the local server starts the sync. \"Run now\" does the same on demand." }]
+              "body": [
+                {
+                  "type": "text",
+                  "text": "A scheduled task on the local server starts the sync. \"Run now\" does the same on demand."
+                }
+              ]
             },
             {
               "title": "Reads every car on nexcar.ca",
@@ -476,9 +858,27 @@
                 {
                   "type": "rows",
                   "rows": [
-                    { "label": "Specs and equipment", "chip": { "text": "Pulled", "tone": "good" } },
-                    { "label": "Photos", "chip": { "text": "Pulled", "tone": "good" } },
-                    { "label": "Carfax link", "chip": { "text": "Pulled", "tone": "good" } }
+                    {
+                      "label": "Specs and equipment",
+                      "chip": {
+                        "text": "Pulled",
+                        "tone": "good"
+                      }
+                    },
+                    {
+                      "label": "Photos",
+                      "chip": {
+                        "text": "Pulled",
+                        "tone": "good"
+                      }
+                    },
+                    {
+                      "label": "Carfax link",
+                      "chip": {
+                        "text": "Pulled",
+                        "tone": "good"
+                      }
+                    }
                   ]
                 }
               ]
@@ -486,18 +886,35 @@
             {
               "title": "Saves a full record per unit",
               "tool": "local-server",
-              "body": [{ "type": "text", "text": "The lot is stored on the local server for every other agent to use." }]
+              "body": [
+                {
+                  "type": "text",
+                  "text": "The lot is stored on the local server for every other agent to use."
+                }
+              ]
             },
             {
               "title": "Warns if the data goes stale",
               "when": "After 26 h",
               "tone": "problem",
               "body": [
-                { "type": "text", "text": "The dashboard warns when the last sync is more than 26 hours old." },
-                { "type": "chips", "chips": [{ "text": "Stale sync", "tone": "problem" }] }
+                {
+                  "type": "text",
+                  "text": "The dashboard warns when the last sync is more than 26 hours old."
+                },
+                {
+                  "type": "chips",
+                  "chips": [
+                    {
+                      "text": "Stale sync",
+                      "tone": "problem"
+                    }
+                  ]
+                }
               ]
             }
-          ]
+          ],
+          "status": "live"
         },
         {
           "id": "inventory-watch",
@@ -516,9 +933,26 @@
                 {
                   "type": "rows",
                   "rows": [
-                    { "label": "Car added", "chip": { "text": "New listing", "tone": "good" } },
-                    { "label": "Price changed", "chip": { "text": "Price change", "tone": "accent" } },
-                    { "label": "Car removed", "chip": { "text": "Delisted" } }
+                    {
+                      "label": "Car added",
+                      "chip": {
+                        "text": "New listing",
+                        "tone": "good"
+                      }
+                    },
+                    {
+                      "label": "Price changed",
+                      "chip": {
+                        "text": "Price change",
+                        "tone": "accent"
+                      }
+                    },
+                    {
+                      "label": "Car removed",
+                      "chip": {
+                        "text": "Delisted"
+                      }
+                    }
                   ]
                 }
               ]
@@ -526,9 +960,15 @@
             {
               "title": "Keeps a rolling history",
               "when": "30 days",
-              "body": [{ "type": "text", "text": "Lot changes stay visible for 30 days. Delisted cars are hidden from the lot." }]
+              "body": [
+                {
+                  "type": "text",
+                  "text": "Lot changes stay visible for 30 days. Delisted cars are hidden from the lot."
+                }
+              ]
             }
-          ]
+          ],
+          "status": "live"
         },
         {
           "id": "sold-car-alert",
@@ -542,37 +982,104 @@
               "body": [
                 {
                   "type": "chips",
-                  "chips": [{ "text": "Available" }, { "text": "Financing" }, { "text": "Body shop" }, { "text": "Sold", "tone": "accent" }]
+                  "chips": [
+                    {
+                      "text": "Available"
+                    },
+                    {
+                      "text": "Financing"
+                    },
+                    {
+                      "text": "Body shop"
+                    },
+                    {
+                      "text": "Sold",
+                      "tone": "accent"
+                    }
+                  ]
                 }
               ]
             },
             {
               "title": "Checks nexcar.ca for sold cars",
               "tool": "nexcar-ca",
-              "body": [{ "type": "text", "text": "Looks for each sold car in the latest pull from the site." }]
+              "body": [
+                {
+                  "type": "text",
+                  "text": "Looks for each sold car in the latest pull from the site."
+                }
+              ]
             },
             {
               "title": "Raises the alert",
               "tone": "problem",
               "body": [
-                { "type": "chips", "chips": [{ "text": "Still advertised online", "tone": "problem" }] },
-                { "type": "text", "text": "Shown in red on the dashboard while the car is still on the site." }
+                {
+                  "type": "chips",
+                  "chips": [
+                    {
+                      "text": "Still advertised online",
+                      "tone": "problem"
+                    }
+                  ]
+                },
+                {
+                  "type": "text",
+                  "text": "Shown in red on the dashboard while the car is still on the site."
+                }
               ]
             }
-          ]
+          ],
+          "status": "live"
         }
       ]
     }
   ],
   "flows": [
-    { "from": "lead-triage", "to": "speed-to-lead", "label": "New leads" },
-    { "from": "lead-triage", "to": "follow-up", "label": "Follow-ups due" },
-    { "from": "lead-triage", "to": "re-engage", "label": "Quiet leads" },
-    { "from": "inventory-sync", "to": "inventory-watch", "label": "Latest pull" },
-    { "from": "inventory-sync", "to": "sold-car-alert", "label": "Latest pull" },
-    { "from": "inventory-sync", "to": "marketplace-poster", "label": "Car details and photos" },
-    { "from": "sold-car-alert", "to": "listing-sync", "label": "Sold cars" },
-    { "from": "inventory-sync", "to": "speed-to-lead", "label": "Live lot" },
-    { "from": "inventory-sync", "to": "marketplace-copy", "label": "Listing text" }
+    {
+      "from": "lead-triage",
+      "to": "speed-to-lead",
+      "label": "New leads"
+    },
+    {
+      "from": "lead-triage",
+      "to": "follow-up",
+      "label": "Follow-ups due"
+    },
+    {
+      "from": "lead-triage",
+      "to": "re-engage",
+      "label": "Quiet leads"
+    },
+    {
+      "from": "inventory-sync",
+      "to": "inventory-watch",
+      "label": "Latest pull"
+    },
+    {
+      "from": "inventory-sync",
+      "to": "sold-car-alert",
+      "label": "Latest pull"
+    },
+    {
+      "from": "inventory-sync",
+      "to": "marketplace-poster",
+      "label": "Car details and photos"
+    },
+    {
+      "from": "sold-car-alert",
+      "to": "listing-sync",
+      "label": "Sold cars"
+    },
+    {
+      "from": "inventory-sync",
+      "to": "speed-to-lead",
+      "label": "Live lot"
+    },
+    {
+      "from": "inventory-sync",
+      "to": "marketplace-copy",
+      "label": "Listing text"
+    }
   ]
 }

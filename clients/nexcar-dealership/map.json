@@ -1,0 +1,405 @@
+{
+  "client": {
+    "name": "Nexcar",
+    "logo": "nexcar-logo.png"
+  },
+  "hub": {
+    "title": "Nexcar Dealership OS",
+    "kicker": "AI Advanced Gen · Agent map"
+  },
+  "approver": "Sales manager",
+  "tools": {
+    "nexcar-ca": {
+      "name": "nexcar.ca",
+      "logo": "client"
+    },
+    "d2c-media": {
+      "name": "D2C Media",
+      "logo": "d2c-media"
+    },
+    "claude": {
+      "name": "Claude",
+      "logo": "claude"
+    },
+    "facebook-marketplace": {
+      "name": "Facebook Marketplace",
+      "logo": "facebook-marketplace"
+    },
+    "messenger": {
+      "name": "Messenger",
+      "logo": "messenger"
+    },
+    "chrome-extension": {
+      "name": "Chrome extension",
+      "logo": "chrome-extension"
+    },
+    "server": {
+      "name": "Dashboard server",
+      "icon": "server"
+    },
+    "excel": {
+      "name": "Bill of sale template",
+      "icon": "file-spreadsheet"
+    }
+  },
+  "departments": [
+    {
+      "id": "inventory",
+      "name": "Inventory",
+      "color": "cyan",
+      "tools": [
+        "nexcar-ca",
+        "server"
+      ],
+      "agents": [
+        {
+          "id": "inventory-sync",
+          "name": "Inventory Sync",
+          "role": "Pulls every unit from the dealer site daily at 7:00 AM",
+          "icon": "refresh-cw",
+          "status": "live",
+          "workflow": [
+            {
+              "title": "Starts every morning",
+              "when": "7:00 AM daily",
+              "tool": "nexcar-ca",
+              "body": [
+                {
+                  "type": "text",
+                  "text": "A scheduled task reads every car on the dealer site through a headless browser."
+                }
+              ]
+            },
+            {
+              "title": "Saves a full record per unit",
+              "tool": "server",
+              "body": [
+                {
+                  "type": "text",
+                  "text": "Specs, equipment, photos and the history-report link are stored for each car."
+                }
+              ]
+            },
+            {
+              "title": "Warns if the data goes stale",
+              "when": "After 26 h",
+              "tone": "problem",
+              "body": [
+                {
+                  "type": "text",
+                  "text": "The dashboard flags inventory older than 26 hours."
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "id": "lot-watch",
+          "name": "Lot Watch",
+          "role": "Flags added, removed and re-priced cars over a 30-day window",
+          "icon": "eye",
+          "status": "live"
+        },
+        {
+          "id": "sold-car-alert",
+          "name": "Sold-car Alert",
+          "role": "Warns when a sold car is still advertised online",
+          "icon": "siren",
+          "status": "live"
+        },
+        {
+          "id": "vehicle-pages",
+          "name": "Vehicle Pages",
+          "role": "Builds each car’s page: gallery, specs, equipment, similar units",
+          "icon": "car",
+          "status": "live"
+        }
+      ]
+    },
+    {
+      "id": "leads",
+      "name": "Leads",
+      "color": "orange",
+      "tools": [
+        "d2c-media",
+        "claude"
+      ],
+      "agents": [
+        {
+          "id": "crm-sync",
+          "name": "CRM Sync",
+          "role": "Pulls working leads, tasks, notes and message threads every 10 minutes",
+          "icon": "database",
+          "status": "live",
+          "workflow": [
+            {
+              "title": "Signs in to the dealer CRM",
+              "when": "Every 10 min",
+              "tool": "d2c-media",
+              "body": [
+                {
+                  "type": "text",
+                  "text": "A trusted, logged-in session reads the working leads."
+                }
+              ]
+            },
+            {
+              "title": "Pulls the full picture",
+              "body": [
+                {
+                  "type": "text",
+                  "text": "Leads, tasks, per-deal notes, customer messages and SMS threads."
+                }
+              ]
+            },
+            {
+              "title": "Shows it in one table",
+              "tone": "good",
+              "body": [
+                {
+                  "type": "text",
+                  "text": "Source, customer, vehicle, last contact, next follow-up, status and last note, with filters."
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "id": "reply-drafter",
+          "name": "Reply Drafter",
+          "role": "Classifies the lead and drafts the reply, matched to a car on the lot",
+          "icon": "message-circle",
+          "status": "building"
+        },
+        {
+          "id": "notes-writer",
+          "name": "Notes Writer",
+          "role": "Writes notes typed in the dashboard back into the CRM",
+          "icon": "pen-line",
+          "status": "live"
+        },
+        {
+          "id": "pipeline",
+          "name": "Pipeline",
+          "role": "Tracks every deal from new to sold or lost",
+          "icon": "list-filter",
+          "status": "live"
+        },
+        {
+          "id": "speed-to-lead",
+          "name": "Speed-to-Lead",
+          "role": "First reply to every new lead",
+          "icon": "zap",
+          "status": "planned"
+        },
+        {
+          "id": "follow-up",
+          "name": "Follow-Up",
+          "role": "Chases due follow-ups on a schedule",
+          "icon": "repeat",
+          "status": "planned"
+        }
+      ]
+    },
+    {
+      "id": "deals",
+      "name": "Deals and paperwork",
+      "color": "gold",
+      "tools": [
+        "server",
+        "excel"
+      ],
+      "agents": [
+        {
+          "id": "deal-builder",
+          "name": "Deal Builder",
+          "role": "Prices a deal: fees, warranty, trade-in and financing by credit tier",
+          "icon": "calculator",
+          "status": "live"
+        },
+        {
+          "id": "bill-of-sale",
+          "name": "Bill of Sale Filler",
+          "role": "Auto-fills the dealership’s bill of sale template",
+          "icon": "file-text",
+          "status": "live"
+        },
+        {
+          "id": "payment-calculator",
+          "name": "Payment Calculator",
+          "role": "Shows payments on each vehicle page",
+          "icon": "wallet",
+          "status": "live"
+        },
+        {
+          "id": "deal-coach",
+          "name": "Deal Coach",
+          "role": "Suggests the next step on each open deal",
+          "icon": "bot",
+          "status": "planned"
+        }
+      ]
+    },
+    {
+      "id": "marketplace",
+      "name": "Marketplace",
+      "color": "blue",
+      "tools": [
+        "facebook-marketplace",
+        "chrome-extension",
+        "messenger"
+      ],
+      "agents": [
+        {
+          "id": "marketplace-poster",
+          "name": "Marketplace Poster",
+          "role": "Fills the whole vehicle form on Facebook Marketplace",
+          "icon": "upload",
+          "status": "live"
+        },
+        {
+          "id": "marketplace-inbox",
+          "name": "Marketplace Inbox",
+          "role": "Reads buyer threads, matches the car and drafts the reply",
+          "icon": "inbox",
+          "status": "live"
+        },
+        {
+          "id": "listing-sync",
+          "name": "Listing Sync",
+          "role": "Matches live listings to cars and builds the take-down list",
+          "icon": "list-checks",
+          "status": "building"
+        }
+      ]
+    },
+    {
+      "id": "marketing",
+      "name": "Marketing",
+      "color": "pink",
+      "tools": [
+        "claude"
+      ],
+      "agents": [
+        {
+          "id": "content-studio",
+          "name": "Content Studio",
+          "role": "Writes Marketplace, Instagram, video and SMS copy per car",
+          "icon": "megaphone",
+          "status": "live"
+        },
+        {
+          "id": "post-queue",
+          "name": "Post Queue",
+          "role": "Queues what to post and what to take down",
+          "icon": "calendar-check",
+          "status": "live"
+        },
+        {
+          "id": "performance",
+          "name": "Performance",
+          "role": "Reports inbound results per post",
+          "icon": "chart-line",
+          "status": "planned"
+        },
+        {
+          "id": "market-watch",
+          "name": "Market Watch",
+          "role": "Watches local market pricing",
+          "icon": "radar",
+          "status": "planned"
+        }
+      ]
+    },
+    {
+      "id": "desk",
+      "name": "Sales desk support",
+      "color": "purple",
+      "tools": [
+        "server"
+      ],
+      "agents": [
+        {
+          "id": "warranty-advisor",
+          "name": "Warranty Advisor",
+          "role": "Recommends a warranty plan from a risk library by make and engine",
+          "icon": "shield-check",
+          "status": "live"
+        },
+        {
+          "id": "warranty-academy",
+          "name": "Warranty Academy",
+          "role": "Cheat sheet, flashcards and quiz for the sales team",
+          "icon": "graduation-cap",
+          "status": "live"
+        },
+        {
+          "id": "diana",
+          "name": "Diana",
+          "role": "In-dashboard assistant: add a lead, pull a car, quote payments, draft a text",
+          "icon": "bot",
+          "status": "live"
+        },
+        {
+          "id": "notifications",
+          "name": "Notifications",
+          "role": "New listings, new leads, new texts and stale syncs",
+          "icon": "bell",
+          "status": "live"
+        }
+      ]
+    }
+  ],
+  "flows": [
+    {
+      "from": "inventory-sync",
+      "to": "lot-watch",
+      "label": "Latest pull"
+    },
+    {
+      "from": "inventory-sync",
+      "to": "sold-car-alert",
+      "label": "Latest pull"
+    },
+    {
+      "from": "inventory-sync",
+      "to": "marketplace-poster",
+      "label": "Car details and photos"
+    },
+    {
+      "from": "inventory-sync",
+      "to": "content-studio",
+      "label": "Listing text"
+    },
+    {
+      "from": "crm-sync",
+      "to": "reply-drafter",
+      "label": "Lead history"
+    },
+    {
+      "from": "crm-sync",
+      "to": "pipeline",
+      "label": "Deals"
+    },
+    {
+      "from": "pipeline",
+      "to": "deal-builder",
+      "label": "Open deal"
+    },
+    {
+      "from": "deal-builder",
+      "to": "bill-of-sale",
+      "label": "Agreed numbers"
+    },
+    {
+      "from": "sold-car-alert",
+      "to": "listing-sync",
+      "label": "Sold cars"
+    },
+    {
+      "from": "content-studio",
+      "to": "post-queue",
+      "label": "Copy"
+    }
+  ]
+}

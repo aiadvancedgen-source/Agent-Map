@@ -1,0 +1,382 @@
+{
+  "client": {
+    "name": "AI Advanced Gen",
+    "logo": "aiadvancedgen-logo.png"
+  },
+  "hub": {
+    "title": "AI Advanced Gen OS",
+    "kicker": "AI Advanced Gen · Agent map"
+  },
+  "approver": "Humza",
+  "tools": {
+    "claude": {
+      "name": "Claude",
+      "logo": "claude"
+    },
+    "mcp": {
+      "name": "CRM tools (MCP)",
+      "icon": "plug"
+    },
+    "n8n": {
+      "name": "n8n",
+      "icon": "workflow"
+    },
+    "git": {
+      "name": "Git",
+      "icon": "git-branch"
+    },
+    "vps": {
+      "name": "Ubuntu server",
+      "icon": "server"
+    },
+    "remotion": {
+      "name": "Remotion",
+      "icon": "video"
+    },
+    "higgsfield": {
+      "name": "Higgsfield",
+      "icon": "image"
+    },
+    "github": {
+      "name": "GitHub",
+      "icon": "github"
+    }
+  },
+  "departments": [
+    {
+      "id": "client-ops",
+      "name": "Client operations",
+      "color": "blue",
+      "tools": [
+        "claude",
+        "mcp"
+      ],
+      "agents": [
+        {
+          "id": "client-registry",
+          "name": "Client Registry",
+          "role": "Logs every client, their services and hosting",
+          "icon": "users",
+          "status": "live"
+        },
+        {
+          "id": "pipeline-tracker",
+          "name": "Pipeline Tracker",
+          "role": "Moves each client through the sales pipeline",
+          "icon": "list-filter",
+          "status": "live"
+        },
+        {
+          "id": "work-log",
+          "name": "Work Log",
+          "role": "Records every project with progress and the next step",
+          "icon": "scroll-text",
+          "status": "live"
+        },
+        {
+          "id": "meeting-logger",
+          "name": "Meeting Logger",
+          "role": "Logs meetings against the right client",
+          "icon": "calendar-check",
+          "status": "live"
+        },
+        {
+          "id": "contract-logger",
+          "name": "Contract Logger",
+          "role": "Keeps contracts on each client’s record",
+          "icon": "file-text",
+          "status": "live"
+        },
+        {
+          "id": "snapshot",
+          "name": "Snapshot",
+          "role": "One-call overview of every client, project and agent",
+          "icon": "layout-dashboard",
+          "status": "live",
+          "workflow": [
+            {
+              "title": "Asked in plain language",
+              "tool": "claude",
+              "body": [
+                {
+                  "type": "text",
+                  "text": "“Where are we this week?” is answered from live records."
+                }
+              ]
+            },
+            {
+              "title": "Pulls everything at once",
+              "tool": "mcp",
+              "body": [
+                {
+                  "type": "text",
+                  "text": "Clients and status, active projects with progress, agent health, meetings and contracts."
+                }
+              ]
+            },
+            {
+              "title": "Flags what needs attention",
+              "tone": "problem",
+              "body": [
+                {
+                  "type": "text",
+                  "text": "Blocked projects and agents with errors are raised first."
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "delivery",
+      "name": "Delivery",
+      "color": "cyan",
+      "tools": [
+        "n8n",
+        "git",
+        "vps"
+      ],
+      "agents": [
+        {
+          "id": "workflow-deployer",
+          "name": "Workflow Deployer",
+          "role": "Pulls, lints and pushes n8n workflows as code",
+          "icon": "git-branch",
+          "status": "live",
+          "workflow": [
+            {
+              "title": "Pulls from the live instance",
+              "tool": "n8n",
+              "body": [
+                {
+                  "type": "text",
+                  "text": "Workflows are reconciled into a Git repository first."
+                }
+              ]
+            },
+            {
+              "title": "Lints before anything ships",
+              "tool": "git",
+              "tone": "problem",
+              "body": [
+                {
+                  "type": "text",
+                  "text": "A linter blocks naming and compliance violations."
+                }
+              ]
+            },
+            {
+              "title": "Pushes, never activates",
+              "when": "Humza decides",
+              "tone": "good",
+              "body": [
+                {
+                  "type": "text",
+                  "text": "Workflows are pushed but only switched on by a person after a test payload."
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "id": "compliance-linter",
+          "name": "Compliance Linter",
+          "role": "Blocks workflows that break client rules before they deploy",
+          "icon": "shield-check",
+          "status": "live"
+        },
+        {
+          "id": "fleet-monitor",
+          "name": "Fleet Monitor",
+          "role": "Tracks every client agent as live, in build or planned, with errors",
+          "icon": "activity",
+          "status": "live"
+        },
+        {
+          "id": "agent-map",
+          "name": "Agent Map",
+          "role": "Publishes each client’s agent team as an interactive map",
+          "icon": "map",
+          "status": "live"
+        },
+        {
+          "id": "error-handler",
+          "name": "Error Handler",
+          "role": "Catches workflow failures across clients and alerts ops",
+          "icon": "siren",
+          "status": "building"
+        },
+        {
+          "id": "server-ops",
+          "name": "Server Ops",
+          "role": "Runs client stacks on self-managed servers",
+          "icon": "server",
+          "status": "live"
+        }
+      ]
+    },
+    {
+      "id": "studio",
+      "name": "Content studio",
+      "color": "pink",
+      "tools": [
+        "remotion",
+        "higgsfield",
+        "claude"
+      ],
+      "agents": [
+        {
+          "id": "video-producer",
+          "name": "Video Producer",
+          "role": "Builds motion-graphic videos in code, with voiceover and captions",
+          "icon": "clapperboard",
+          "status": "live"
+        },
+        {
+          "id": "image-generator",
+          "name": "Image Generator",
+          "role": "Produces campaign imagery for clients",
+          "icon": "images",
+          "status": "live"
+        },
+        {
+          "id": "site-builder",
+          "name": "Site Builder",
+          "role": "Builds and ships client websites",
+          "icon": "globe",
+          "status": "live"
+        },
+        {
+          "id": "deck-builder",
+          "name": "Deck Builder",
+          "role": "Builds the company pitch deck from real proof of work",
+          "icon": "file-text",
+          "status": "building"
+        },
+        {
+          "id": "brand-identity",
+          "name": "Brand Identity",
+          "role": "Logo and brand system",
+          "icon": "palette",
+          "status": "building"
+        }
+      ]
+    },
+    {
+      "id": "growth",
+      "name": "Growth",
+      "color": "orange",
+      "tools": [
+        "claude"
+      ],
+      "agents": [
+        {
+          "id": "prospect-finder",
+          "name": "Prospect Finder",
+          "role": "Builds lists of local businesses to contact",
+          "icon": "search",
+          "status": "planned"
+        },
+        {
+          "id": "outreach-drafter",
+          "name": "Outreach Drafter",
+          "role": "Drafts first messages for approval",
+          "icon": "send",
+          "status": "planned"
+        },
+        {
+          "id": "proposal-builder",
+          "name": "Proposal Builder",
+          "role": "Turns a discovery call into a proposal",
+          "icon": "briefcase",
+          "status": "planned"
+        },
+        {
+          "id": "case-studies",
+          "name": "Case Studies",
+          "role": "Writes up finished systems as proof of work",
+          "icon": "newspaper",
+          "status": "planned"
+        }
+      ]
+    },
+    {
+      "id": "finance",
+      "name": "Finance",
+      "color": "gold",
+      "tools": [
+        "claude",
+        "mcp"
+      ],
+      "agents": [
+        {
+          "id": "retainer-tracker",
+          "name": "Retainer Tracker",
+          "role": "Tracks which clients are on retainer and what is due",
+          "icon": "wallet",
+          "status": "planned"
+        },
+        {
+          "id": "invoice-builder",
+          "name": "Invoice Builder",
+          "role": "Prepares invoices for approval",
+          "icon": "receipt",
+          "status": "planned"
+        }
+      ]
+    }
+  ],
+  "flows": [
+    {
+      "from": "client-registry",
+      "to": "pipeline-tracker",
+      "label": "New client"
+    },
+    {
+      "from": "pipeline-tracker",
+      "to": "work-log",
+      "label": "Won"
+    },
+    {
+      "from": "work-log",
+      "to": "snapshot",
+      "label": "Progress"
+    },
+    {
+      "from": "fleet-monitor",
+      "to": "snapshot",
+      "label": "Agent health"
+    },
+    {
+      "from": "workflow-deployer",
+      "to": "fleet-monitor",
+      "label": "Deployed agents"
+    },
+    {
+      "from": "compliance-linter",
+      "to": "workflow-deployer",
+      "label": "Passed"
+    },
+    {
+      "from": "fleet-monitor",
+      "to": "agent-map",
+      "label": "Statuses"
+    },
+    {
+      "from": "work-log",
+      "to": "case-studies",
+      "label": "Finished work"
+    },
+    {
+      "from": "proposal-builder",
+      "to": "pipeline-tracker",
+      "label": "Proposal sent"
+    },
+    {
+      "from": "pipeline-tracker",
+      "to": "retainer-tracker",
+      "label": "Retainers"
+    }
+  ]
+}

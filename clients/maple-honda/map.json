@@ -1,0 +1,286 @@
+{
+  "client": {
+    "name": "Maple Honda",
+    "logo": "maple-honda-logo.png"
+  },
+  "hub": {
+    "title": "Sales Desk AI OS",
+    "kicker": "AI Advanced Gen · Agent map"
+  },
+  "approver": "Salesperson",
+  "tools": {
+    "n8n": {
+      "name": "n8n",
+      "icon": "workflow"
+    },
+    "postgres": {
+      "name": "PostgreSQL",
+      "icon": "database"
+    },
+    "claude": {
+      "name": "Claude",
+      "logo": "claude"
+    },
+    "twilio": {
+      "name": "Twilio SMS",
+      "icon": "message-square"
+    },
+    "autotrader": {
+      "name": "Dealer inventory listing",
+      "icon": "car"
+    },
+    "facebook-marketplace": {
+      "name": "Facebook Marketplace",
+      "logo": "facebook-marketplace"
+    },
+    "chrome-extension": {
+      "name": "Chrome extension",
+      "logo": "chrome-extension"
+    },
+    "sheet": {
+      "name": "Used-car sheet",
+      "icon": "table"
+    }
+  },
+  "departments": [
+    {
+      "id": "demand",
+      "name": "Demand",
+      "color": "orange",
+      "tools": [
+        "twilio",
+        "claude"
+      ],
+      "agents": [
+        {
+          "id": "diana",
+          "name": "Diana",
+          "role": "AI SMS agent that qualifies inbound leads",
+          "icon": "message-circle",
+          "status": "shipped",
+          "workflow": [
+            {
+              "title": "A lead texts in",
+              "when": "Inbound",
+              "tool": "twilio",
+              "body": [
+                {
+                  "type": "text",
+                  "text": "The conversation starts by SMS."
+                }
+              ]
+            },
+            {
+              "title": "Diana qualifies",
+              "tool": "claude",
+              "body": [
+                {
+                  "type": "text",
+                  "text": "She asks what the buyer needs and answers from real inventory."
+                }
+              ]
+            },
+            {
+              "title": "Hands over a qualified lead",
+              "when": "Salesperson decides",
+              "tone": "good",
+              "body": [
+                {
+                  "type": "text",
+                  "text": "The salesperson picks up a conversation that is already warm."
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "id": "buyer-auto-responder",
+          "name": "Buyer Auto-Responder",
+          "role": "Answers “is this available?” with that car’s availability and price",
+          "icon": "zap",
+          "status": "building"
+        }
+      ]
+    },
+    {
+      "id": "sales",
+      "name": "Sales",
+      "color": "blue",
+      "tools": [
+        "claude"
+      ],
+      "agents": [
+        {
+          "id": "objection-handler",
+          "name": "Objection Handler",
+          "role": "Suggests a response to the buyer’s objection",
+          "icon": "message-square",
+          "status": "shipped"
+        },
+        {
+          "id": "payment-coach",
+          "name": "Payment Coach",
+          "role": "Lease-versus-finance numbers side by side",
+          "icon": "calculator",
+          "status": "shipped"
+        },
+        {
+          "id": "newcomer-finance",
+          "name": "Newcomer Finance Guide",
+          "role": "Explains financing options for newcomers",
+          "icon": "wallet",
+          "status": "shipped"
+        }
+      ]
+    },
+    {
+      "id": "advertising",
+      "name": "Advertising",
+      "color": "pink",
+      "tools": [
+        "facebook-marketplace",
+        "chrome-extension"
+      ],
+      "agents": [
+        {
+          "id": "marketplace-lister",
+          "name": "Marketplace Lister",
+          "role": "Fills Marketplace’s vehicle form in one click",
+          "icon": "upload",
+          "status": "shipped",
+          "workflow": [
+            {
+              "title": "The salesperson picks a car",
+              "when": "On click",
+              "body": [
+                {
+                  "type": "text",
+                  "text": "Chosen from the inventory dashboard."
+                }
+              ]
+            },
+            {
+              "title": "The form fills itself",
+              "tool": "chrome-extension",
+              "body": [
+                {
+                  "type": "text",
+                  "text": "A Chrome extension fills the whole vehicle form."
+                }
+              ]
+            },
+            {
+              "title": "Sold or unpriced cars are blocked",
+              "tone": "problem",
+              "body": [
+                {
+                  "type": "text",
+                  "text": "They can never be posted."
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "id": "photo-brander",
+          "name": "Photo Brander",
+          "role": "Crops the watermark bar and stamps the salesperson’s name and number",
+          "icon": "image",
+          "status": "shipped"
+        }
+      ]
+    },
+    {
+      "id": "intelligence",
+      "name": "Intelligence",
+      "color": "cyan",
+      "tools": [
+        "autotrader",
+        "postgres",
+        "sheet"
+      ],
+      "agents": [
+        {
+          "id": "inventory-sync",
+          "name": "Inventory Sync",
+          "role": "Tracks 65+ live vehicles, refreshed every two hours",
+          "icon": "refresh-cw",
+          "status": "shipped"
+        },
+        {
+          "id": "sheet-matcher",
+          "name": "Sheet Matcher",
+          "role": "Matches the used-car sheet to live listings by stock number",
+          "icon": "table",
+          "status": "shipped"
+        },
+        {
+          "id": "performance-analyst",
+          "name": "Performance Analyst",
+          "role": "Reviews message outcomes weekly and rewrites the other agents’ prompts",
+          "icon": "chart-line",
+          "status": "shipped"
+        }
+      ]
+    },
+    {
+      "id": "compliance",
+      "name": "Compliance",
+      "color": "gold",
+      "tools": [
+        "claude"
+      ],
+      "agents": [
+        {
+          "id": "ad-compliance",
+          "name": "Ad Compliance",
+          "role": "Checks listings against Ontario dealer advertising rules",
+          "icon": "shield-check",
+          "status": "shipped"
+        }
+      ]
+    }
+  ],
+  "flows": [
+    {
+      "from": "inventory-sync",
+      "to": "marketplace-lister",
+      "label": "Car details and photos"
+    },
+    {
+      "from": "inventory-sync",
+      "to": "diana",
+      "label": "Live lot"
+    },
+    {
+      "from": "photo-brander",
+      "to": "marketplace-lister",
+      "label": "Branded photos"
+    },
+    {
+      "from": "buyer-auto-responder",
+      "to": "diana",
+      "label": "Interested buyers"
+    },
+    {
+      "from": "diana",
+      "to": "objection-handler",
+      "label": "Qualified lead"
+    },
+    {
+      "from": "performance-analyst",
+      "to": "diana",
+      "label": "New prompts"
+    },
+    {
+      "from": "ad-compliance",
+      "to": "marketplace-lister",
+      "label": "Approved copy"
+    },
+    {
+      "from": "sheet-matcher",
+      "to": "inventory-sync",
+      "label": "Stock numbers"
+    }
+  ]
+}

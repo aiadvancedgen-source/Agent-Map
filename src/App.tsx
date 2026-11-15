@@ -161,10 +161,10 @@ export default function App() {
                 <b>{client.agentCount}</b> agents
               </span>
               {(() => {
-                const live = map.departments.flatMap((d) => d.agents).filter((a) => (a.status ?? 'live') === 'live').length
+                const live = map.departments.flatMap((d) => d.agents).filter((a) => ['live', 'shipped'].includes(a.status ?? 'live')).length
                 return live < client.agentCount ? (
                   <span>
-                    <b>{live}</b> live
+                    <b>{live}</b> live or shipped
                   </span>
                 ) : null
               })()}

@@ -36,7 +36,7 @@ export interface Agent {
   /** Overrides the department's tools. */
   tools?: string[]
   /** Build state shown on the badge. Defaults to live. */
-  status?: 'live' | 'building' | 'planned'
+  status?: 'live' | 'building' | 'planned' | 'shipped'
   workflow?: Step[]
 }
 
